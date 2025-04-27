@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #EAEDED;
+      min-height: 100vh;
+    }
+    .header {
+      width: 100%;
+      background-color: #131921;
+      color: white;
+      padding: 0.5rem;
+    }
+    .nav-belt {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem;
+    }
+    .logo {
+      height: 2rem;
+      padding: 0 0.5rem;
+    }
+    .nav-search {
+      flex-grow: 1;
+      display: flex;
+      margin: 0 0.5rem;
+    }
+    .nav-search-dropdown {
+      background-color: #f3f3f3;
+      padding: 0.5rem;
+      border-radius: 4px 0 0 4px;
+      border: none;
+    }
+    .nav-search-input {
+      flex-grow: 1;
+      padding: 0.5rem;
+      border: none;
+      outline: none;
+    }
+    .nav-search-submit {
+      background-color: #febd69;
+      padding: 0 1rem;
+      border: none;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+    }
+    .nav-search-submit:hover {
+      background-color: #f3a847;
+    }
+    .nav-tools {
+      display: flex;
+      align-items: center;
+    }
+    .nav-item {
+      padding: 0.5rem;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+    .nav-item:hover {
+      border-color: white;
+    }
+    .nav-line-1 {
+      font-size: 0.75rem;
+      color: #ccc;
+    }
+    .nav-line-2 {
+      font-size: 0.875rem;
+      font-weight: bold;
+    }
+    .nav-cart {
+      display: flex;
+      align-items: flex-end;
+    }
+    .nav-cart-count {
+      color: #f08804;
+      font-weight: bold;
+    }
+    .sub-nav {
+      background-color: #232f3e;
+      color: white;
+      padding: 0.5rem;
+      display: flex;
+      overflow-x: auto;
+    }
+    .sub-nav-item {
+      padding: 0.5rem;
+      white-space: nowrap;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+    .sub-nav-item:hover {
+      border-color: white;
+    }
+    .hero {
+      position: relative;
+      width: 100%;
+    }
+    .hero-image {
+      width: 100%;
+      max-height: 600px;
+      object-fit: cover;
+    }
+    .hero-gradient {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 8rem;
+      background: linear-gradient(to top, #eaeded, transparent);
+    }
+    .main {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .card {
+      background-color: white;
+      padding: 1rem;
+      border-radius: 4px;
+    }
+    .card-title {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+    .card-image {
+      width: 100%;
+      height: auto;
+      margin-bottom: 0.5rem;
+    }
+    .card-link {
+      color: #007185;
+      text-decoration: none;
+      font-size: 0.875rem;
+    }
+    .card-link:hover {
+      color: #c7511f;
+      text-decoration: underline;
+    }
+    .sign-in {
+      background-color: white;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    .sign-in-button {
+      width: 100%;
+      background-color: #FFD814;
+      border: 1px solid #FCD200;
+      border-radius: 8px;
+      padding: 0.5rem;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .sign-in-button:hover {
+      background-color: #F7CA00;
+    }
+    .footer {
+      background-color: white;
+      margin-top: 2rem;
+    }
+    .back-to-top {
+      background-color: #37475A;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      cursor: pointer;
+    }
+    .back-to-top:hover {
+      background-color: #485769;
+    }
+    .footer-content {
+      background-color: #232F3E;
+      color: white;
+      padding: 2rem;
+    }
+    .footer-grid {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+    .footer-column h3 {
+      margin-bottom: 1rem;
+    }
+    .footer-link {
+      color: #DDD;
+      text-decoration: none;
+      font-size: 0.875rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .footer-link:hover {
+      text-decoration: underline;
+    }
+    .footer-bottom {
+      background-color: #131A22;
+      color: #DDD;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.75rem;
+    }
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .nav-tools {
+        display: none;
+      }
+    }
+    @media (max-width: 480px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .recently-viewed-trigger {
+      position: fixed;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #232F3E;
+      color: white;
+      padding: 1rem 0.5rem;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      cursor: pointer;
+      border-radius: 4px 0 0 4px;
+      z-index: 1000;
+      transition: right 0.3s ease;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+    .recently-viewed-trigger:hover {
+      background: #37475A;
+    }
+    .recently-viewed-panel {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 400px;
+      height: 100vh;
+      background: #fff;
+      box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2);
+      transition: right 0.3s ease;
+      z-index: 1001;
+      overflow-y: auto;
+    }
+    .recently-viewed-panel.open {
+      right: 0;
+    }
+    .recently-viewed-trigger.open {
+      right: 400px;
+    }
+    .recently-viewed-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      background: #F0F2F2;
+      border-bottom: 1px solid #DDD;
+    }
+    .recently-viewed-header h2 {
+      font-size: 18px;
+      color: #0F1111;
+      font-weight: 700;
+    }
+    .recently-viewed-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #0F1111;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+    }
+    .recently-viewed-close:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+    .recently-viewed-item {
+      display: flex;
+      padding: 16px;
+      border-bottom: 1px solid #E7E7E7;
+      animation: slideIn 0.3s ease;
+      transition: background-color 0.2s ease;
+    }
+    .recently-viewed-item:hover {
+      background-color: #F7FAFA;
+      cursor: pointer;
+    }
+    .recently-viewed-item img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-right: 16px;
+      border: 1px solid #F0F2F2;
+      padding: 4px;
+    }
+    .recently-viewed-item-details {
+      flex: 1;
+    }
+    .recently-viewed-item-title {
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: #0F1111;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .recently-viewed-item-title:hover {
+      color: #C7511F;
+    }
+    .recently-viewed-item-price {
+      color: #B12704;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .recently-viewed-timestamp {
+      font-size: 12px;
+      color: #565959;
+      margin-top: 8px;
+    }
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="nav-belt">
+      <img src="https://pngimg.com/uploads/amazon/amazon_PNG11.png" alt="Amazon" class="logo">
+      <div class="nav-search">
+        <select class="nav-search-dropdown">
+          <option>All</option>
+        </select>
+        <input type="text" class="nav-search-input" placeholder="Search Amazon">
+        <button class="nav-search-submit">🔍</button>
+      </div>
+      <div class="nav-tools">
+        <div class="nav-item">
+          <span class="nav-line-1">Hello, sign in</span>
+          <span class="nav-line-2">Account & Lists</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-line-1">Returns</span>
+          <span class="nav-line-2">& Orders</span>
+        </div>
+        <div class="nav-item nav-cart">
+          <span class="nav-cart-count">0</span>
+          <span class="nav-line-2">Cart</span>
+        </div>
+      </div>
+    </div>
+    <div class="sub-nav">
+      <div class="sub-nav-item">☰ All</div>
+      <div class="sub-nav-item">Today's Deals</div>
+      <div class="sub-nav-item">Customer Service</div>
+      <div class="sub-nav-item">Registry</div>
+      <div class="sub-nav-item">Gift Cards</div>
+      <div class="sub-nav-item">Sell</div>
+    </div>
+  </header>
+  <div class="hero">
+    <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2020/May/Hero/Fuji_TallHero_45M_v2_1x._CB432458380_.jpg" alt="Hero" class="hero-image">
+    <div class="hero-gradient"></div>
+  </div>
+  <main class="main">
+    <div class="grid">
+      <div class="sign-in">
+        <h2 class="card-title">Sign in for the best experience</h2>
+        <button class="sign-in-button">Sign in securely</button>
+      </div>
+      <div class="card">
+        <h2 class="card-title">Shop Laptops & Tablets</h2>
+        <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2020/May/Dashboard/Fuji_Dash_Laptops_379x304_1X_en_US._SY304_CB418608471_.jpg" alt="Laptops" class="card-image">
+        <a href="#" class="card-link">Shop now</a>
+      </div>
+      <div class="card">
+        <h2 class="card-title">Health & Personal Care</h2>
+        <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2022/February/DashboardCards/GW_CONS_AUS_HPC_HPCEssentials_CatCard_Desktop1x._SY304_CB627424361_.jpg" alt="Health" class="card-image">
+        <a href="#" class="card-link">Shop now</a>
+      </div>
+      <div class="card">
+        <h2 class="card-title">Electronics</h2>
+        <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2020/May/Dashboard/Fuji_Dash_Electronics_1x._SY304_CB432774322_.jpg" alt="Electronics" class="card-image">
+        <a href="#" class="card-link">See more</a>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <h2 class="card-title">Gaming accessories</h2>
+        <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Keyboard_1x._SY116_CB667159063_.jpg" alt="Gaming" class="card-image">
+        <a href="#" class="card-link">See more</a>
+      </div>
+      <div class="card">
+        <h2 class="card-title">Shop Pet supplies</h2>
+        <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/September/DashboardCards/Fuji_Dash_Pets_1X._SY304_CB639746743_.jpg" alt="Pets" class="card-image">
+        <a href="#" class="card-link">See more</a>
+      </div>
+      <div class="card">
+        <h2 class="card-title">New arrivals in Toys</h2>
+        <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/September/DashboardCards/Fuji_Dash_Toys_1X._SY304_CB639759658_.jpg" alt="Toys" class="card-image">
+        <a href="#" class="card-link">Shop now</a>
+      </div>
+      <div class="card">
+        <h2 class="card-title">For your Fitness Needs</h2>
+        <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/September/DashboardCards/Fuji_Dash_Fitness_1X._SY304_CB639748186_.jpg" alt="Fitness" class="card-image">
+        <a href="#" class="card-link">Shop now</a>
+      </div>
+    </div>
+  </main>
+  <div class="recently-viewed-trigger">Recently Viewed</div>
+  <div class="recently-viewed-panel">
+    <div class="recently-viewed-header">
+      <h2>Recently Viewed Items</h2>
+      <button class="recently-viewed-close">×</button>
+    </div>
+    <div id="recently-viewed-items"></div>
+  </div>
+  <footer class="footer">
+    <div class="back-to-top">Back to top</div>
+    <div class="footer-content">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h3>Get to Know Us</h3>
+          <a href="#" class="footer-link">Careers</a>
+          <a href="#" class="footer-link">Blog</a>
+          <a href="#" class="footer-link">About Amazon</a>
+          <a href="#" class="footer-link">Investor Relations</a>
+          <a href="#" class="footer-link">Amazon Devices</a>
+        </div>
+        <div class="footer-column">
+          <h3>Make Money with Us</h3>
+          <a href="#" class="footer-link">Sell products on Amazon</a>
+          <a href="#" class="footer-link">Sell apps on Amazon</a>
+          <a href="#" class="footer-link">Become an Affiliate</a>
+          <a href="#" class="footer-link">Advertise Your Products</a>
+          <a href="#" class="footer-link">Self-Publish with Us</a>
+        </div>
+        <div class="footer-column">
+          <h3>Amazon Payment Products</h3>
+          <a href="#" class="footer-link">Amazon Business Card</a>
+          <a href="#" class="footer-link">Shop with Points</a>
+          <a href="#" class="footer-link">Reload Your Balance</a>
+          <a href="#" class="footer-link">Amazon Currency Converter</a>
+        </div>
+        <div class="footer-column">
+          <h3>Let Us Help You</h3>
+          <a href="#" class="footer-link">Amazon and COVID-19</a>
+          <a href="#" class="footer-link">Your Account</a>
+          <a href="#" class="footer-link">Your Orders</a>
+          <a href="#" class="footer-link">Shipping Rates & Policies</a>
+          <a href="#" class="footer-link">Returns & Replacements</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 1996-2024, Amazon.com, Inc. or its affiliates</p>
+    </div>
+  </footer>
+  <script>
+    document.querySelector('.back-to-top').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    let cartCount = 0;
+    document.querySelector('.nav-cart').addEventListener('click', () => {
+      cartCount++;
+      document.querySelector('.nav-cart-count').textContent = cartCount;
+    });
+    class RecentlyViewedManager {
+      constructor() {
+        this.maxItems = 10;
+        this.items = JSON.parse(localStorage.getItem('recentlyViewed')) || [];
+        this.panel = document.querySelector('.recently-viewed-panel');
+        this.trigger = document.querySelector('.recently-viewed-trigger');
+        this.container = document.getElementById('recently-viewed-items');
+        this.setupEventListeners();
+        this.render();
+        this.setupProductTracking();
+      }
+      setupEventListeners() {
+        this.trigger.addEventListener('click', () => this.togglePanel());
+        document.querySelector('.recently-viewed-close').addEventListener('click', () => this.closePanel());
+        document.addEventListener('click', (e) => {
+          if (!this.panel.contains(e.target) && !this.trigger.contains(e.target) && this.panel.classList.contains('open')) {
+            this.closePanel();
+          }
+        });
+      }
+      togglePanel() {
+        this.panel.classList.toggle('open');
+        this.trigger.classList.toggle('open');
+      }
+      closePanel() {
+        this.panel.classList.remove('open');
+        this.trigger.classList.remove('open');
+      }
+      setupProductTracking() {
+        document.querySelectorAll('.card').forEach(card => {
+          card.addEventListener('click', () => {
+            const title = card.querySelector('.card-title').textContent;
+            const image = card.querySelector('img').src;
+            const price = '$' + (Math.random() * 100).toFixed(2);
+            this.addItem({ title, image, price });
+          });
+        });
+      }
+      addItem(item) {
+        this.items = this.items.filter(i => i.title !== item.title);
+        this.items.unshift({
+          ...item,
+          timestamp: new Date().toISOString()
+        });
+        if (this.items.length > this.maxItems) {
+          this.items.pop();
+        }
+        localStorage.setItem('recentlyViewed', JSON.stringify(this.items));
+        this.render();
+      }
+      formatTimestamp(timestamp) {
+        const date = new Date(timestamp);
+        const now = new Date();
+        const diff = (now - date) / 1000;
+        if (diff < 60) return 'Just now';
+        if (diff < 3600) return `${Math.floor(diff / 60)} minutes ago`;
+        if (diff < 86400) return `${Math.floor(diff / 3600)} hours ago`;
+        return `${Math.floor(diff / 86400)} days ago`;
+      }
+      render() {
+        this.container.innerHTML = this.items.length ? '' :
+          '<p style="text-align: center; color: #666; padding: 2rem;">No items viewed yet</p>';
+        this.items.forEach(item => {
+          const itemElement = document.createElement('div');
+          itemElement.className = 'recently-viewed-item';
+          itemElement.innerHTML = `
+            <img src="${item.image}" alt="${item.title}">
+            <div class="recently-viewed-item-details">
+              <div class="recently-viewed-item-title">${item.title}</div>
+              <div class="recently-viewed-item-price">${item.price}</div>
+              <div class="recently-viewed-timestamp">${this.formatTimestamp(item.timestamp)}</div>
+            </div>
+          `;
+          this.container.appendChild(itemElement);
+        });
+      }
+    }
+    new RecentlyViewedManager();
+  </script>
+</body>
+</html>
